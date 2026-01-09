@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microsoft Zero Trust Hub & Assessment</title>
+    <title>Zero Trust Hub & Assessment Tool</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,6 +15,7 @@
                         msBlue: '#0078D4',
                         msDark: '#242424',
                         bgLight: '#f0f2f5',
+                        brandBiz: '#7719aa', /* สีม่วงสำหรับ Business Premium */
                     },
                     fontFamily: {
                         sans: ['"Segoe UI"', 'Roboto', 'sans-serif'],
@@ -33,7 +34,7 @@
         }
         .glass-card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
         
-        /* Option Card Styles for Form */
+        /* Interactive Option Cards */
         .option-card { cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
         .option-card:hover { background-color: #eff6fc; border-color: #c7e0f4; }
         .option-card.selected { border-color: #0078D4; background-color: #e5f1fb; position: relative; }
@@ -46,9 +47,12 @@
         .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Tab Active State */
+        /* Navigation Tabs */
         .nav-tab.active { color: #0078D4; border-bottom: 2px solid #0078D4; }
         .nav-tab { color: #64748b; border-bottom: 2px solid transparent; }
+        
+        /* Table Formatting */
+        th, td { white-space: nowrap; }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
@@ -61,23 +65,23 @@
                         <i class="fa-brands fa-microsoft text-xl"></i>
                     </div>
                     <div>
-                        <h1 class="font-bold text-lg text-slate-700 leading-tight">Zero Trust Strategy</h1>
-                        <p class="text-xs text-slate-500">Resource Hub & Assessment</p>
+                        <h1 class="font-bold text-lg text-slate-700 leading-tight">Zero Trust Hub</h1>
+                        <p class="text-xs text-slate-500">Resource & Assessment Center</p>
                     </div>
                 </div>
                 
                 <div class="hidden md:flex space-x-8 h-full">
                     <button onclick="switchView('hub')" id="tab-hub" class="nav-tab active h-full px-4 font-semibold text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-layer-group"></i> Resource Hub
+                        <i class="fa-solid fa-book-open"></i> Resource Hub
                     </button>
                     <button onclick="switchView('assessment')" id="tab-assessment" class="nav-tab h-full px-4 font-semibold text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-clipboard-check"></i> Gap Analysis Tool
+                        <i class="fa-solid fa-chart-pie"></i> Gap Analysis Tool
                     </button>
                 </div>
 
-                <div class="text-sm font-semibold text-msBlue">
-                    <span id="date-display" class="hidden md:inline"></span>
-                </div>
+                <a href="https://learn.microsoft.com/en-us/security/zero-trust/" target="_blank" class="hidden md:flex items-center text-xs font-bold text-msBlue bg-blue-50 px-3 py-1 rounded-full hover:bg-blue-100 transition">
+                    Microsoft Learn <i class="fa-solid fa-external-link-alt ml-2"></i>
+                </a>
             </div>
         </div>
         <div class="md:hidden flex border-t border-gray-100">
@@ -91,38 +95,83 @@
         <div id="view-hub" class="fade-in">
             <div class="bg-slate-800 text-white py-12">
                 <div class="max-w-7xl mx-auto px-4 text-center">
-                    <h2 class="text-3xl font-bold mb-4">Secure Everything with Zero Trust</h2>
+                    <h2 class="text-3xl font-bold mb-4">Zero Trust Architecture</h2>
                     <p class="text-slate-300 max-w-2xl mx-auto mb-6">
                         Verify Explicitly • Use Least Privilege Access • Assume Breach
                     </p>
-                    <button onclick="switchView('assessment')" class="bg-msBlue hover:bg-blue-600 text-white px-6 py-2 rounded-full font-semibold transition shadow-lg">
-                        Start Assessment <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
+                    <div class="flex justify-center gap-3 text-xs font-semibold">
+                        <span class="px-3 py-1 bg-brandBiz/20 border border-brandBiz/50 text-purple-200 rounded-full">Business Premium (SME)</span>
+                        <span class="px-3 py-1 bg-msBlue/20 border border-msBlue/50 text-blue-200 rounded-full">Enterprise E3/E5</span>
+                    </div>
                 </div>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-                <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                    </div>
+                <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"></div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div class="p-6 border-b border-gray-100 bg-slate-50">
-                        <h3 class="text-xl font-bold text-slate-800">🛡️ Licensing Comparison: E3 vs E5</h3>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+                    <div class="p-6 border-b border-gray-100 bg-slate-50 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">📊 Plan Comparison: Business vs Enterprise</h3>
+                            <p class="text-sm text-slate-500">เลือก Plan ที่เหมาะกับขนาดองค์กรและความต้องการ Zero Trust</p>
+                        </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left">
-                            <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b">
-                                <tr>
-                                    <th class="px-6 py-4">Feature</th>
-                                    <th class="px-6 py-4 text-center">M365 E3</th>
-                                    <th class="px-6 py-4 text-center bg-blue-50 text-msBlue">M365 E5</th>
+                        <table class="w-full text-sm text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 border-b border-gray-200">
+                                    <th class="px-6 py-4 font-bold text-slate-600 w-1/4">Capability / Feature</th>
+                                    <th class="px-6 py-4 text-center border-l border-r border-gray-200 bg-purple-50 w-1/4">
+                                        <div class="font-bold text-brandBiz">Business Premium</div>
+                                        <div class="text-xs text-slate-500 font-normal mt-1">Best for SMEs (< 300 users)</div>
+                                    </th>
+                                    <th class="px-6 py-4 text-center border-r border-gray-200 w-1/4">
+                                        <div class="font-bold text-slate-700">Enterprise E3</div>
+                                        <div class="text-xs text-slate-500 font-normal mt-1">Standard Enterprise</div>
+                                    </th>
+                                    <th class="px-6 py-4 text-center bg-blue-50 w-1/4">
+                                        <div class="font-bold text-msBlue">Enterprise E5</div>
+                                        <div class="text-xs text-slate-500 font-normal mt-1">Full Zero Trust Suite</div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
-                                <tr><td class="px-6 py-4 font-medium">Identity Protection</td><td class="px-6 py-4 text-center text-slate-500">MFA (P1)</td><td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">Risk AI (P2)</td></tr>
-                                <tr><td class="px-6 py-4 font-medium">Endpoint Defense</td><td class="px-6 py-4 text-center text-slate-500">Antivirus</td><td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">EDR + Hunting</td></tr>
-                                <tr><td class="px-6 py-4 font-medium">CASB</td><td class="px-6 py-4 text-center text-slate-500">Discovery</td><td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">Full Control</td></tr>
-                                <tr class="bg-gray-50 font-bold"><td class="px-6 py-4">Est. Price</td><td class="px-6 py-4 text-center">~$36</td><td class="px-6 py-4 text-center text-msBlue bg-blue-50/50">~$57</td></tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-slate-700">Identity Security</td>
+                                    <td class="px-6 py-4 text-center border-l border-r border-gray-200">Entra ID P1 (MFA)</td>
+                                    <td class="px-6 py-4 text-center border-r border-gray-200">Entra ID P1 (MFA)</td>
+                                    <td class="px-6 py-4 text-center bg-blue-50/20 font-bold text-green-600">Entra ID P2 (Risk-AI)</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-slate-700">Endpoint Protection</td>
+                                    <td class="px-6 py-4 text-center border-l border-r border-gray-200 font-semibold text-green-600">Defender for Business (EDR) <span class="text-xs bg-green-100 text-green-800 px-1 rounded">Better than E3</span></td>
+                                    <td class="px-6 py-4 text-center border-r border-gray-200 text-slate-500">Defender P1 (AV Only)</td>
+                                    <td class="px-6 py-4 text-center bg-blue-50/20 font-bold text-green-600">Defender P2 (Full EDR)</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-slate-700">Device Management</td>
+                                    <td class="px-6 py-4 text-center border-l border-r border-gray-200 text-green-600"><i class="fa-solid fa-check"></i> Intune</td>
+                                    <td class="px-6 py-4 text-center border-r border-gray-200 text-green-600"><i class="fa-solid fa-check"></i> Intune</td>
+                                    <td class="px-6 py-4 text-center bg-blue-50/20 text-green-600"><i class="fa-solid fa-check"></i> Intune</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-slate-700">Data Protection</td>
+                                    <td class="px-6 py-4 text-center border-l border-r border-gray-200">Azure Info Protection (P1)</td>
+                                    <td class="px-6 py-4 text-center border-r border-gray-200">Azure Info Protection (P1)</td>
+                                    <td class="px-6 py-4 text-center bg-blue-50/20 font-bold text-green-600">Auto-Labeling (P2)</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-medium text-slate-700">On-prem AD Security</td>
+                                    <td class="px-6 py-4 text-center border-l border-r border-gray-200 text-red-400"><i class="fa-solid fa-xmark"></i> Not Included</td>
+                                    <td class="px-6 py-4 text-center border-r border-gray-200 text-red-400"><i class="fa-solid fa-xmark"></i> Not Included</td>
+                                    <td class="px-6 py-4 text-center bg-blue-50/20 font-bold text-green-600">Defender for Identity</td>
+                                </tr>
+                                <tr class="bg-gray-50 font-bold text-xs uppercase">
+                                    <td class="px-6 py-4">Est. Price / User / Month</td>
+                                    <td class="px-6 py-4 text-center border-l border-r border-gray-200 text-brandBiz text-base">~$22.00</td>
+                                    <td class="px-6 py-4 text-center border-r border-gray-200 text-slate-600 text-base">~$36.00</td>
+                                    <td class="px-6 py-4 text-center bg-blue-50/20 text-msBlue text-base">~$57.00</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -131,28 +180,31 @@
         </div>
 
         <div id="view-assessment" class="hidden-view max-w-4xl mx-auto px-4 py-10 fade-in">
-            
             <div class="text-center mb-10">
-                <span class="bg-blue-100 text-msBlue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Interactive Tool</span>
-                <h2 class="text-3xl font-bold text-slate-800 mt-3">Gap Analysis Assessment</h2>
-                <p class="text-slate-500 mt-2">ตอบคำถาม 4 ข้อเพื่อวิเคราะห์ช่องโหว่และ License ที่เหมาะสม</p>
+                <span class="bg-blue-100 text-msBlue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Gap Analysis</span>
+                <h2 class="text-3xl font-bold text-slate-800 mt-3">Security Assessment Tool</h2>
+                <p class="text-slate-500 mt-2">ประเมินสถานะปัจจุบันเพื่อรับคำแนะนำ License และการตั้งค่าที่เหมาะสม</p>
             </div>
 
             <div id="assessment-form" class="space-y-8">
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 class="font-bold text-lg mb-4">1. License ปัจจุบันของคุณ?</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'none', this)">
-                            <div class="font-bold text-slate-700">Standalone / None</div>
-                            <div class="text-xs text-slate-500 mt-1">ซื้อแยก / Google Workspace</div>
+                            <div class="font-bold text-slate-700">None / Basic</div>
+                            <div class="text-xs text-slate-500 mt-1">ซื้อขาด / Google / E1</div>
+                        </div>
+                        <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'biz', this)">
+                            <div class="font-bold text-brandBiz">Business Prem.</div>
+                            <div class="text-xs text-slate-500 mt-1">SME Security Suite</div>
                         </div>
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'e3', this)">
-                            <div class="font-bold text-slate-700">M365 E3 / Biz Std</div>
-                            <div class="text-xs text-slate-500 mt-1">Standard Security</div>
+                            <div class="font-bold text-slate-700">M365 E3</div>
+                            <div class="text-xs text-slate-500 mt-1">Enterprise Std</div>
                         </div>
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'e5', this)">
-                            <div class="font-bold text-slate-700">M365 E5</div>
-                            <div class="text-xs text-slate-500 mt-1">Full Security Suite</div>
+                            <div class="font-bold text-msBlue">M365 E5</div>
+                            <div class="text-xs text-slate-500 mt-1">Full Zero Trust</div>
                         </div>
                     </div>
                     <input type="hidden" id="input-license">
@@ -162,7 +214,7 @@
                     <h3 class="font-bold text-lg mb-4">2. ระบบ Identity (AD)?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('identity', 'onprem', this)">
-                            <div class="font-bold text-slate-700">On-premise AD</div>
+                            <div class="font-bold text-slate-700">On-prem AD</div>
                             <div class="text-xs text-slate-500 mt-1">Server ภายในเท่านั้น</div>
                         </div>
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('identity', 'hybrid', this)">
@@ -171,7 +223,7 @@
                         </div>
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('identity', 'cloud', this)">
                             <div class="font-bold text-slate-700">Cloud Only</div>
-                            <div class="text-xs text-slate-500 mt-1">ไม่มี Server, Cloud 100%</div>
+                            <div class="text-xs text-slate-500 mt-1">Cloud 100%</div>
                         </div>
                     </div>
                     <input type="hidden" id="input-identity">
@@ -186,21 +238,21 @@
                         </div>
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('endpoint', 'defender', this)">
                             <div class="font-bold text-slate-700">Microsoft Defender</div>
-                            <div class="text-xs text-slate-500 mt-1">Basic หรือ Endpoint Plan</div>
+                            <div class="text-xs text-slate-500 mt-1">Defender for Endpoint / Biz</div>
                         </div>
                     </div>
                     <input type="hidden" id="input-endpoint">
                 </div>
 
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="font-bold text-lg mb-4">4. การเข้าถึงจากภายนอก (Remote)?</h3>
+                    <h3 class="font-bold text-lg mb-4">4. การเข้าถึงจากภายนอก?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('access', 'vpn', this)">
                             <div class="font-bold text-slate-700">VPN</div>
-                            <div class="text-xs text-slate-500 mt-1">Connect VPN เข้ามา</div>
+                            <div class="text-xs text-slate-500 mt-1">Connect VPN</div>
                         </div>
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('access', 'none', this)">
-                            <div class="font-bold text-slate-700">Public IP / Direct</div>
+                            <div class="font-bold text-slate-700">Public IP</div>
                             <div class="text-xs text-slate-500 mt-1">Forward Port (Unsafe)</div>
                         </div>
                         <div class="option-card border rounded-lg p-4" onclick="selectOption('access', 'ztna', this)">
@@ -213,7 +265,7 @@
 
                 <div class="text-center">
                     <button onclick="calculateGap()" class="bg-msBlue text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:bg-blue-700 transition transform hover:scale-105">
-                        Analyze Report
+                        <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Analyze Result
                     </button>
                 </div>
             </div>
@@ -223,7 +275,7 @@
                     <div class="bg-slate-800 text-white p-6 flex justify-between items-center">
                         <div>
                             <h2 class="text-xl font-bold">Analysis Result</h2>
-                            <p class="text-sm text-slate-400">Based on your inputs</p>
+                            <p class="text-sm text-slate-400">Based on Microsoft Zero Trust Framework</p>
                         </div>
                         <button onclick="resetAssessment()" class="text-xs bg-slate-700 px-3 py-1 rounded hover:bg-slate-600">Re-assess</button>
                     </div>
@@ -239,15 +291,16 @@
                                 <ul id="list-have" class="space-y-2 text-sm text-slate-600"></ul>
                             </div>
                             <div>
-                                <h4 class="font-bold text-msBlue text-sm uppercase mb-3 border-b pb-2">🚀 Recommended Actions (Gaps)</h4>
+                                <h4 class="font-bold text-msBlue text-sm uppercase mb-3 border-b pb-2">🚀 Recommendations (Gaps)</h4>
                                 <ul id="list-need" class="space-y-2 text-sm"></ul>
                             </div>
                         </div>
                         
-                        <div class="mt-8 bg-slate-50 p-4 rounded-lg border border-slate-200 flex justify-between items-center">
+                        <div class="mt-8 bg-slate-50 p-4 rounded-lg border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
                             <div>
-                                <div class="text-xs text-slate-500 uppercase font-bold">Recommended License</div>
+                                <div class="text-xs text-slate-500 uppercase font-bold">Recommended Solution</div>
                                 <div id="license-rec-title" class="text-lg font-bold text-msBlue"></div>
+                                <a href="https://learn.microsoft.com/en-us/microsoft-365/business-premium/" target="_blank" class="text-xs text-msBlue hover:underline mt-1 inline-block">See Plan Details <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                             <div class="text-right">
                                 <div class="text-xs text-slate-500">Est. Price</div>
@@ -263,69 +316,100 @@
 
     <footer class="bg-slate-800 text-slate-400 py-6 mt-auto text-center text-sm border-t border-slate-700">
         <p>&copy; <span id="year"></span> by Mr.Abdulloh Etaeluengoh. All rights reserved.</p>
+        <p class="mt-1 text-xs text-slate-500">
+            Reference: <a href="https://learn.microsoft.com/en-us/security/zero-trust/" class="hover:text-white underline">Microsoft Zero Trust Guidance</a>
+        </p>
     </footer>
 
     <script>
-        // Set Year
         document.getElementById('year').textContent = new Date().getFullYear();
-        document.getElementById('date-display').textContent = new Date().toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'short' });
 
-        // --- View Switching Logic ---
+        // View Switching Logic
         function switchView(viewName) {
-            // Hide all views
             document.getElementById('view-hub').classList.add('hidden-view');
             document.getElementById('view-assessment').classList.add('hidden-view');
-            
-            // Show selected view
             document.getElementById('view-' + viewName).classList.remove('hidden-view');
 
-            // Update Desktop Tabs
             document.getElementById('tab-hub').classList.remove('active');
             document.getElementById('tab-assessment').classList.remove('active');
             document.getElementById('tab-' + viewName).classList.add('active');
 
-            // Update Mobile Tabs
-            const mobHub = document.getElementById('mob-tab-hub');
-            const mobAssess = document.getElementById('mob-tab-assessment');
-            
+            // Mobile tab sync
             if(viewName === 'hub') {
-                mobHub.className = "flex-1 py-3 text-center text-sm font-semibold text-msBlue bg-blue-50";
-                mobAssess.className = "flex-1 py-3 text-center text-sm font-semibold text-slate-500";
+                document.getElementById('mob-tab-hub').className = "flex-1 py-3 text-center text-sm font-semibold text-msBlue bg-blue-50";
+                document.getElementById('mob-tab-assessment').className = "flex-1 py-3 text-center text-sm font-semibold text-slate-500";
             } else {
-                mobHub.className = "flex-1 py-3 text-center text-sm font-semibold text-slate-500";
-                mobAssess.className = "flex-1 py-3 text-center text-sm font-semibold text-msBlue bg-blue-50";
+                document.getElementById('mob-tab-hub').className = "flex-1 py-3 text-center text-sm font-semibold text-slate-500";
+                document.getElementById('mob-tab-assessment').className = "flex-1 py-3 text-center text-sm font-semibold text-msBlue bg-blue-50";
             }
-            
             window.scrollTo(0,0);
         }
 
-        // --- Resource Hub Data Injection ---
+        // Data: Added Microsoft Learn Links
         const resources = [
-            { title: "Identity", icon: "fa-id-card", color: "text-purple-600", desc: "Protect user credentials", items: ["Entra ID (Azure AD)", "MFA Enforcement", "Conditional Access"] },
-            { title: "Endpoints", icon: "fa-laptop-medical", color: "text-blue-600", desc: "Secure devices", items: ["Intune (MDM)", "Defender for Endpoint", "Compliance Policy"] },
-            { title: "Apps", icon: "fa-cubes", color: "text-orange-600", desc: "Control Shadow IT", items: ["Defender for Cloud Apps", "App Proxy (No VPN)", "Single Sign-On"] },
-            { title: "Data", icon: "fa-file-shield", color: "text-green-600", desc: "Encrypt sensitive info", items: ["Information Protection", "DLP Policies", "Auto-Labeling"] },
-            { title: "Infrastructure", icon: "fa-server", color: "text-red-600", desc: "Detect lateral movement", items: ["Defender for Identity", "Azure Arc", "Threat Protection"] }
+            { 
+                title: "Identity", 
+                icon: "fa-id-card", 
+                color: "text-purple-600", 
+                desc: "Strong Authentication", 
+                items: ["Entra ID (Azure AD)", "MFA Enforcement", "Conditional Access"],
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/identity"
+            },
+            { 
+                title: "Endpoints", 
+                icon: "fa-laptop-medical", 
+                color: "text-blue-600", 
+                desc: "Device Health", 
+                items: ["Intune (MDM)", "Defender for Endpoint", "Compliance Policy"],
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/endpoints"
+            },
+            { 
+                title: "Apps", 
+                icon: "fa-cubes", 
+                color: "text-orange-600", 
+                desc: "Shadow IT Control", 
+                items: ["Defender for Cloud Apps", "App Proxy", "SSO"],
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/applications"
+            },
+            { 
+                title: "Data", 
+                icon: "fa-file-shield", 
+                color: "text-green-600", 
+                desc: "Information Protection", 
+                items: ["Purview Info Protection", "DLP Policies", "Sensitivity Labels"],
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/data"
+            },
+            { 
+                title: "Infrastructure", 
+                icon: "fa-server", 
+                color: "text-red-600", 
+                desc: "Threat Detection", 
+                items: ["Defender for Identity", "Azure Arc", "Threat Protection"],
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/infrastructure"
+            }
         ];
 
         const container = document.getElementById('cards-container');
         resources.forEach(item => {
             const card = document.createElement('div');
-            card.className = "glass-card rounded-xl p-6 flex flex-col h-full";
+            card.className = "glass-card rounded-xl p-6 flex flex-col h-full relative group";
             card.innerHTML = `
                 <div class="flex items-center gap-3 mb-4">
                     <i class="fa-solid ${item.icon} ${item.color} text-2xl"></i>
                     <h4 class="font-bold text-lg text-slate-800">${item.title}</h4>
                 </div>
                 <p class="text-xs text-slate-500 uppercase font-semibold mb-3 tracking-wide">${item.desc}</p>
-                <ul class="space-y-2 mt-auto">
+                <ul class="space-y-2 mt-auto mb-4">
                     ${item.items.map(i => `<li class="text-sm text-slate-600 flex items-center gap-2"><i class="fa-solid fa-check text-green-500 text-xs"></i> ${i}</li>`).join('')}
                 </ul>
+                <a href="${item.link}" target="_blank" class="text-xs font-semibold text-msBlue hover:underline flex items-center gap-1 mt-auto pt-4 border-t border-gray-100">
+                    Learn on Microsoft Docs <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
             `;
             container.appendChild(card);
         });
 
-        // --- Assessment Form Logic ---
+        // Assessment Logic
         function selectOption(category, value, element) {
             document.getElementById(`input-${category}`).value = value;
             const parent = element.parentElement;
@@ -346,30 +430,55 @@
 
             let have = [], need = [], summary = "", recTitle = "", recPrice = "";
 
-            // Logic
-            if(identity === 'onprem') { have.push("On-prem AD"); need.push("Setup Entra Connect (Hybrid)"); need.push("Enable MFA"); }
-            else if(identity === 'hybrid') { have.push("Hybrid Identity"); need.push("Enable User Risk Policy (P2)"); }
-            else { have.push("Cloud Identity"); }
-
-            if(endpoint === 'legacy') { have.push("Legacy AV"); need.push("Deploy Defender for Endpoint (EDR)"); }
-            else { have.push("Defender Basic"); need.push("Enable Automated Investigation"); }
-
-            if(access === 'vpn') { have.push("VPN Access"); need.push("Migrate to App Proxy/ZTNA"); }
-            else if(access === 'none') { have.push("Direct Access (Risk)"); need.push("Block Direct Access Immediately"); }
-
-            // Recommendation
-            if(license === 'e5') {
-                summary = "Excellent! You have E5. Focus on configuration.";
-                recTitle = "Optimization Only"; recPrice = "Owned";
-            } else if(license === 'e3') {
-                summary = "Good base. Add security layer for Zero Trust.";
-                recTitle = "Add: M365 E5 Security"; recPrice = "+$12/user";
-            } else {
-                summary = "High Risk. Need foundational security.";
-                recTitle = "Upgrade to M365 Business Premium / E3"; recPrice = "$22 - $36";
+            // 1. Identity Logic
+            if(identity === 'onprem') { 
+                have.push("On-premise AD"); 
+                need.push("Setup Hybrid Identity (Entra Connect)"); 
+                need.push("Enforce MFA"); 
+            } else if(identity === 'hybrid') { 
+                have.push("Hybrid Identity"); 
+                need.push("Enable Conditional Access"); 
+            } else { 
+                have.push("Cloud Identity"); 
             }
 
-            // Render
+            // 2. Endpoint Logic
+            if(endpoint === 'legacy') { 
+                have.push("Legacy AV"); 
+                need.push("Deploy Defender for Business/Endpoint"); 
+            } else { 
+                have.push("Microsoft Defender"); 
+                need.push("Onboard devices to Intune"); 
+            }
+
+            // 3. Access Logic
+            if(access === 'vpn') { 
+                have.push("VPN Access"); 
+                need.push("Implement App Proxy / ZTNA"); 
+            } else if(access === 'none') { 
+                have.push("Direct Access (Unsafe)"); 
+                need.push("Block Direct Access & Enable MFA"); 
+            }
+
+            // 4. Recommendation Logic (Business Premium vs E3 vs E5)
+            if(license === 'e5') {
+                summary = "Excellent! You have E5. Focus on advanced configuration (P2 features).";
+                recTitle = "Optimization & Configuration"; recPrice = "Already Owned";
+            } else if(license === 'biz') {
+                summary = "Great choice! Business Premium includes Defender for Business (EDR). Ensure Intune is active.";
+                recTitle = "Verify Intune & Defender Config"; recPrice = "Already Owned";
+            } else if(license === 'e3') {
+                summary = "Good Enterprise base, but E3 lacks automated EDR & Risk Identity features found in Biz Premium/E5.";
+                recTitle = "Add: M365 E5 Security"; recPrice = "+$12/user";
+            } else {
+                // If None/Basic
+                summary = "Critical Gaps Found. You need a unified security suite.";
+                // Recommend Business Premium as default entry point for most
+                recTitle = "M365 Business Premium (Best for <300 users)"; 
+                recPrice = "~$22.00 /user";
+                need.push("Full Tenant Setup");
+            }
+
             document.getElementById('summary-text').innerText = summary;
             document.getElementById('list-have').innerHTML = have.map(t => `<li><i class="fa-solid fa-check text-green-500"></i> ${t}</li>`).join('');
             document.getElementById('list-need').innerHTML = need.map(t => `<li><i class="fa-solid fa-arrow-right text-msBlue"></i> ${t}</li>`).join('');
@@ -378,12 +487,12 @@
 
             document.getElementById('assessment-form').classList.add('hidden-view');
             document.getElementById('result-section').classList.remove('hidden-view');
+            window.scrollTo(0,0);
         }
 
         function resetAssessment() {
             document.getElementById('assessment-form').classList.remove('hidden-view');
             document.getElementById('result-section').classList.add('hidden-view');
-            // Clear inputs if needed, or keep for edit
         }
     </script>
 </body>
