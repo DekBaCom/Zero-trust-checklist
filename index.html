@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Zero Trust Resource Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        msBlue: '#0078D4',
+                        msDark: '#242424',
+                        bgLight: '#f0f2f5',
+                        brandPurple: '#5C2D91',
+                        brandTeal: '#008272'
+                    },
+                    fontFamily: {
+                        sans: ['"Segoe UI"', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f0f2f5; }
+        .glass-card {
+            background: white;
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .pain-point-item:before {
+            content: "⚠️";
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+        .service-item:before {
+            content: "🛡️";
+            margin-right: 8px;
+            font-size: 0.8em;
+        }
+        .smooth-transition { transition: all 0.3s ease; }
+        .smooth-transition:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-msBlue text-white p-2 rounded-lg">
+                        <i class="fa-brands fa-microsoft text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-slate-700 leading-tight">Zero Trust Strategy</h1>
+                        <p class="text-xs text-slate-500">Resource & Licensing Hub</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#pillars" class="text-slate-600 hover:text-msBlue font-medium">5 Pillars</a>
+                    <a href="#comparison" class="text-slate-600 hover:text-msBlue font-medium">E3 vs E5</a>
+                </div>
+                <a href="https://learn.microsoft.com/en-us/security/zero-trust/" target="_blank" class="text-msBlue hover:underline text-sm font-semibold">
+                    Microsoft Docs <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-slate-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Secure Everything with Zero Trust</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto mb-8">
+                Verify Explicitly • Use Least Privilege Access • Assume Breach
+            </p>
+            <div class="flex justify-center gap-4 text-sm">
+                <span class="bg-slate-700 px-3 py-1 rounded-full border border-slate-600">On-Premise</span>
+                <span class="bg-slate-700 px-3 py-1 rounded-full border border-slate-600">Hybrid Cloud</span>
+                <span class="bg-slate-700 px-3 py-1 rounded-full border border-slate-600">Microsoft 365</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" id="pillars">
+        
+        <div class="mb-6 flex items-center justify-between">
+            <h3 class="text-xl font-bold text-slate-700 border-l-4 border-msBlue pl-3">Architecture Pillars</h3>
+            <span class="text-sm text-slate-500">*Prices are estimated retail per user/month</span>
+        </div>
+
+        <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+
+        <div id="comparison" class="mt-16 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 bg-slate-50">
+                <h3 class="text-xl font-bold text-slate-800">🛡️ Licensing Comparison: E3 vs E5</h3>
+                <p class="text-sm text-slate-500">เปรียบเทียบความคุ้มค่าระหว่าง Plan มาตรฐานและ Plan ความปลอดภัยสูงสุด</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b">
+                        <tr>
+                            <th class="px-6 py-4 font-bold">Feature / Capability</th>
+                            <th class="px-6 py-4 text-center">Microsoft 365 E3<br><span class="text-xs normal-case text-slate-400">Standard Security</span></th>
+                            <th class="px-6 py-4 text-center bg-blue-50 text-msBlue">Microsoft 365 E5<br><span class="text-xs normal-case">Zero Trust Recommended</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">Identity Protection</td>
+                            <td class="px-6 py-4 text-center text-slate-500">MFA Only (P1)</td>
+                            <td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">Risk-based AI (P2)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">Endpoint Defense</td>
+                            <td class="px-6 py-4 text-center text-slate-500">Antivirus Only</td>
+                            <td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">EDR + Automated Hunting</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">App Security (CASB)</td>
+                            <td class="px-6 py-4 text-center text-slate-500">Discovery Only</td>
+                            <td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">Full Control + Block</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">Data Classification</td>
+                            <td class="px-6 py-4 text-center text-slate-500">Manual</td>
+                            <td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">Automatic (AI)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">On-prem AD Security</td>
+                            <td class="px-6 py-4 text-center text-red-400"><i class="fa-solid fa-xmark"></i> Not Included</td>
+                            <td class="px-6 py-4 text-center font-bold text-green-600 bg-blue-50/30">Defender for Identity</td>
+                        </tr>
+                        <tr class="bg-gray-50 font-bold">
+                            <td class="px-6 py-4">Est. Price / User</td>
+                            <td class="px-6 py-4 text-center text-slate-600">~$36</td>
+                            <td class="px-6 py-4 text-center text-msBlue bg-blue-50/50">~$57</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-yellow-50 text-yellow-800 text-sm border-t border-yellow-100 flex items-start gap-3">
+                <i class="fa-solid fa-lightbulb mt-1"></i>
+                <div>
+                    <strong>Pro Tip:</strong> หากงบไม่ถึง E5 ทั้งหมด แนะนำซื้อ <strong>M365 E3</strong> + Add-on <strong>"E5 Security"</strong> (~$12) จะได้ฟีเจอร์ความปลอดภัยครบเท่า E5 ในราคาที่ถูกกว่า
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="bg-slate-800 text-slate-400 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>Generated for Zero Trust Assessment Strategy.</p>
+            <p class="mt-2 text-xs text-slate-500">Disclaimer: Prices are estimated list prices (USD). Actual pricing may vary by region and CSP agreement.</p>
+        </div>
+    </footer>
+
+    <script>
+        const resources = [
+            {
+                id: "identity",
+                title: "Identity (ตัวตน)",
+                icon: "fa-id-card",
+                color: "text-purple-600",
+                desc: "The New Perimeter",
+                painPoints: [
+                    "Credential Theft (โดนหลอกเอา Pass)",
+                    "Weak Passwords (ตั้งรหัสง่าย)",
+                    "No MFA (ไม่มีการยืนยันตัวตนชั้นที่ 2)"
+                ],
+                services: [
+                    "Entra ID (Azure AD)",
+                    "Entra ID Protection (Risk Detect)",
+                    "Conditional Access"
+                ],
+                license: "M365 E5 (Recommended)",
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/identity"
+            },
+            {
+                id: "endpoints",
+                title: "Endpoints (อุปกรณ์)",
+                icon: "fa-laptop-medical",
+                color: "text-blue-600",
+                desc: "Device Health & Compliance",
+                painPoints: [
+                    "BYOD Risk (อุปกรณ์ส่วนตัวแพร่ไวรัส)",
+                    "Legacy AV (กัน Ransomware ไม่ได้)",
+                    "Lost Devices (ข้อมูลหลุดเมื่อเครื่องหาย)"
+                ],
+                services: [
+                    "Microsoft Intune (MDM/MAM)",
+                    "Defender for Endpoint (EDR)"
+                ],
+                license: "M365 E5 / Biz Premium",
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/endpoints"
+            },
+            {
+                id: "apps",
+                title: "Applications (แอป)",
+                icon: "fa-cubes",
+                color: "text-orange-600",
+                desc: "Shadow IT Control",
+                painPoints: [
+                    "Shadow IT (แอบใช้ Cloud ส่วนตัว)",
+                    "VPN Vulnerabilities (ช่องโหว่ VPN)",
+                    "Over-privileged Apps"
+                ],
+                services: [
+                    "Defender for Cloud Apps (CASB)",
+                    "Entra Private Access (No VPN)"
+                ],
+                license: "M365 E5 (Full CASB)",
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/applications"
+            },
+            {
+                id: "data",
+                title: "Data (ข้อมูล)",
+                icon: "fa-file-shield",
+                color: "text-green-600",
+                desc: "Protection Everywhere",
+                painPoints: [
+                    "Data Leakage (ส่งไฟล์ผิด/Line)",
+                    "USB Theft (ก๊อปใส่ Flash drive)",
+                    "No Encryption (ไฟล์หลุดแล้วเปิดได้เลย)"
+                ],
+                services: [
+                    "Purview Information Protection",
+                    "Data Loss Prevention (DLP)"
+                ],
+                license: "M365 E5 (Auto-Label)",
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/data"
+            },
+            {
+                id: "infra",
+                title: "Infrastructure",
+                icon: "fa-server",
+                color: "text-red-600",
+                desc: "Hybrid & On-Premise",
+                painPoints: [
+                    "Lateral Movement (แฮกเกอร์เดินข้ามเครื่อง)",
+                    "AD Attacks (Pass-the-Hash)",
+                    "Unpatched Servers"
+                ],
+                services: [
+                    "Defender for Identity (MDI)",
+                    "Azure Arc (Server Mgmt)"
+                ],
+                license: "M365 E5 Only",
+                link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/infrastructure"
+            }
+        ];
+
+        const container = document.getElementById('cards-container');
+        
+        resources.forEach(item => {
+            const card = document.createElement('div');
+            card.className = "glass-card rounded-xl p-6 smooth-transition flex flex-col h-full";
+            
+            card.innerHTML = `
+                <div class="flex items-center gap-4 mb-4 border-b border-gray-100 pb-4">
+                    <div class="w-12 h-12 rounded-lg bg-slate-50 flex items-center justify-center shadow-sm">
+                        <i class="fa-solid ${item.icon} ${item.color} text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-slate-800">${item.title}</h4>
+                        <p class="text-xs text-slate-500 uppercase tracking-wide font-semibold">${item.desc}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 flex-grow">
+                    <div>
+                        <h5 class="text-xs font-bold text-red-500 uppercase mb-2 tracking-wider">🔴 Pain Points</h5>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            ${item.painPoints.map(p => `<li class="pain-point-item text-slate-700">${p}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h5 class="text-xs font-bold text-msBlue uppercase mb-2 tracking-wider">🔵 Solution Services</h5>
+                        <ul class="text-sm text-slate-600 space-y-1">
+                            ${item.services.map(s => `<li class="service-item font-medium text-slate-800">${s}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span class="inline-block px-2 py-1 text-xs font-semibold rounded bg-slate-100 text-slate-600 border border-slate-200">
+                        ${item.license}
+                    </span>
+                    <a href="${item.link}" target="_blank" class="text-msBlue hover:text-blue-700 text-sm font-semibold flex items-center gap-1">
+                        Learn <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
