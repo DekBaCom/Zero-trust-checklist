@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero Trust Ultimate Hub v10</title>
+    <title>Zero Trust Ultimate Hub v11 (Full Matrix)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -16,6 +16,8 @@
                         msDark: '#242424',
                         bgLight: '#f0f2f5',
                         brandBiz: '#7719aa',
+                        brandE3: '#0f766e',
+                        brandE5: '#0078D4',
                     },
                     fontFamily: {
                         sans: ['"Segoe UI"', 'Roboto', 'sans-serif'],
@@ -78,18 +80,18 @@
         
         /* Table Styles */
         th.sticky-header { position: sticky; top: 0; background-color: #f8fafc; z-index: 10; border-bottom: 2px solid #e2e8f0; }
-        .check-green { color: #10b981; font-size: 1.1em; }
-        .cross-red { color: #ef4444; opacity: 0.5; }
         
-        /* Badges */
-        .badge-p2 { color: #d97706; font-weight: bold; font-size: 0.85em; background: #fffbeb; padding: 2px 6px; rounded: 4px; border: 1px solid #fcd34d; }
-        .badge-biz { color: #7719aa; font-weight: bold; font-size: 0.85em; background: #f3e8ff; padding: 2px 6px; rounded: 4px; border: 1px solid #d8b4fe; }
-        .badge-basic { color: #64748b; font-size: 0.85em; background: #f1f5f9; padding: 2px 6px; rounded: 4px; }
+        /* Badges & Icons */
+        .badge-biz { color: #7719aa; font-weight: bold; font-size: 0.75em; background: #f3e8ff; padding: 2px 8px; border-radius: 99px; border: 1px solid #d8b4fe; }
+        .badge-e5 { color: #0078D4; font-weight: bold; font-size: 0.75em; background: #eff6fc; padding: 2px 8px; border-radius: 99px; border: 1px solid #bfdbfe; }
+        .badge-basic { color: #64748b; font-size: 0.75em; background: #f1f5f9; padding: 2px 8px; border-radius: 99px; }
+        
+        .icon-check { color: #10b981; font-size: 1.1em; } /* Green Check */
+        .icon-cross { color: #cbd5e1; font-size: 1.1em; } /* Grey Cross */
+        .icon-partial { color: #f59e0b; font-size: 1.1em; } /* Orange Warning */
 
         /* Chart SVG Logic */
         .circular-chart { display: block; margin: 0 auto; max-width: 100%; max-height: 250px; }
-        .circle-bg { fill: none; stroke: #eee; stroke-width: 3.8; }
-        .circle { fill: none; stroke-width: 2.8; stroke-linecap: round; transition: stroke-dasharray 1s ease-out; }
 
         @media print {
             .no-print { display: none !important; }
@@ -129,9 +131,9 @@
             </div>
         </div>
         <div class="md:hidden flex border-t border-gray-100">
-            <button onclick="switchView('hub')" id="mob-tab-hub" class="flex-1 py-3 text-center text-sm font-semibold text-msBlue bg-blue-50">Hub</button>
-            <button onclick="switchView('compare')" id="mob-tab-compare" class="flex-1 py-3 text-center text-sm font-semibold text-slate-500">Compare</button>
-            <button onclick="switchView('assessment')" id="mob-tab-assessment" class="flex-1 py-3 text-center text-sm font-semibold text-slate-500">Assess</button>
+            <button onclick="switchView('hub')" id="mob-tab-hub" class="flex-1 py-3 text-center text-sm font-semibold text-msBlue bg-blue-50 transition-colors">Hub</button>
+            <button onclick="switchView('compare')" id="mob-tab-compare" class="flex-1 py-3 text-center text-sm font-semibold text-slate-500 transition-colors">Compare</button>
+            <button onclick="switchView('assessment')" id="mob-tab-assessment" class="flex-1 py-3 text-center text-sm font-semibold text-slate-500 transition-colors">Assess</button>
         </div>
     </nav>
 
@@ -156,37 +158,153 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <div class="text-center mb-8">
                     <h2 class="text-2xl font-bold text-slate-800">Complete Feature Comparison</h2>
-                    <p class="text-slate-500">ตารางเปรียบเทียบฟีเจอร์ความปลอดภัยแบบละเอียด (Full Matrix)</p>
+                    <p class="text-slate-500">Security Feature Matrix: Standard vs Business Premium vs Enterprise E5</p>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
                     <div class="overflow-x-auto max-h-[80vh]">
                         <table class="w-full text-sm text-left border-collapse">
                             <thead>
                                 <tr>
-                                    <th class="px-6 py-4 sticky-header shadow-sm bg-gray-50 text-slate-600 font-bold w-1/4">Feature Category</th>
-                                    <th class="px-6 py-4 sticky-header shadow-sm text-center bg-purple-50 w-1/4 border-l border-r border-purple-100">
+                                    <th class="px-6 py-5 sticky-header shadow-sm bg-gray-50 text-slate-700 font-bold w-1/3 text-base">Feature Category / Capability</th>
+                                    <th class="px-6 py-5 sticky-header shadow-sm text-center bg-purple-50 w-1/5 border-l border-r border-purple-100">
                                         <div class="font-bold text-brandBiz text-lg">Business Premium</div>
                                         <div class="text-xs text-slate-500 font-normal mt-1">SME (< 300 Users)</div>
                                     </th>
-                                    <th class="px-6 py-4 sticky-header shadow-sm text-center bg-gray-50 border-r border-gray-200 w-1/4">
+                                    <th class="px-6 py-5 sticky-header shadow-sm text-center bg-gray-50 border-r border-gray-200 w-1/5">
                                         <div class="font-bold text-slate-700 text-lg">Enterprise E3</div>
                                         <div class="text-xs text-slate-500 font-normal mt-1">Standard Corp</div>
                                     </th>
-                                    <th class="px-6 py-4 sticky-header shadow-sm text-center bg-blue-50 w-1/4">
+                                    <th class="px-6 py-5 sticky-header shadow-sm text-center bg-blue-50 w-1/5">
                                         <div class="font-bold text-msBlue text-lg">Enterprise E5</div>
                                         <div class="text-xs text-slate-500 font-normal mt-1">Full Security</div>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
-                                <tr class="bg-gray-50 font-bold">
+                                <tr class="bg-gray-50 font-bold text-slate-600">
                                     <td class="px-6 py-4">Est. Price (USD/User/Month)</td>
                                     <td class="px-6 py-4 text-center border-l border-r border-gray-200 text-brandBiz">~$22.00</td>
                                     <td class="px-6 py-4 text-center border-r border-gray-200">~$36.00</td>
                                     <td class="px-6 py-4 text-center text-msBlue">~$57.00</td>
                                 </tr>
-                                <tr class="bg-slate-100"><td colspan="4" class="px-6 py-2 font-bold text-xs text-slate-500 uppercase tracking-wider">1. Identity & Access (Entra ID)</td></tr>
-                                <tr class="hover:bg-gray-50"><td class="px-6 py-3 font-medium">MFA & Conditional Access</td><td class="px-6 py-3 text-center border-x"><span class="badge-basic">Plan 1</span></td><td class="px-6 py-3 text-center border-r"><span class="badge-basic">Plan 1</span></td><td class="px-6 py-3 text-center"><span class="badge-basic">Plan 1</span></td></tr>
+
+                                <tr class="bg-slate-100"><td colspan="4" class="px-6 py-3 font-bold text-xs text-slate-600 uppercase tracking-wider">1. Identity & Access (Entra ID)</td></tr>
+                                
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Multi-Factor Authentication (MFA)</td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Conditional Access <span class="text-xs text-slate-400 block font-normal">Context-based policies (IP, Device, Loc)</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><span class="badge-biz">Plan 1</span></td>
+                                    <td class="px-6 py-3 text-center border-r"><span class="badge-basic">Plan 1</span></td>
+                                    <td class="px-6 py-3 text-center"><span class="badge-e5">Plan 2</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Identity Protection <span class="text-xs text-slate-400 block font-normal">Real-time Risk Detection & Blocking</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Privileged Identity Mgmt (PIM) <span class="text-xs text-slate-400 block font-normal">Just-In-Time Admin Access</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+
+                                <tr class="bg-slate-100"><td colspan="4" class="px-6 py-3 font-bold text-xs text-slate-600 uppercase tracking-wider">2. Endpoint Management (Intune)</td></tr>
+                                
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">MDM (Device Management) <span class="text-xs text-slate-400 block font-normal">Manage Windows, iOS, Android, macOS</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">MAM (Mobile App Management) <span class="text-xs text-slate-400 block font-normal">Protect App Data on Personal Devices</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Windows Autopilot <span class="text-xs text-slate-400 block font-normal">Zero-touch Deployment</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+
+                                <tr class="bg-slate-100"><td colspan="4" class="px-6 py-3 font-bold text-xs text-slate-600 uppercase tracking-wider">3. Threat Protection (Defender)</td></tr>
+                                
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Next-Gen Antivirus</td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Endpoint Detection & Response (EDR) <span class="text-xs text-slate-400 block font-normal">Advanced Post-breach hunting</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><span class="badge-biz">Included</span></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><span class="badge-e5">Included</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Email Safe Links & Attachments <span class="text-xs text-slate-400 block font-normal">Zero-day Phishing/Malware Protection</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Automated Investigation & Response <span class="text-xs text-slate-400 block font-normal">Self-healing AI</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+
+                                <tr class="bg-slate-100"><td colspan="4" class="px-6 py-3 font-bold text-xs text-slate-600 uppercase tracking-wider">4. Information Protection (Purview)</td></tr>
+                                
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Manual Sensitivity Labels</td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Data Loss Prevention (DLP) <span class="text-xs text-slate-400 block font-normal">Exchange, SharePoint, OneDrive</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-check icon-check"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Endpoint DLP <span class="text-xs text-slate-400 block font-normal">Block USB, Print, Clipboard on Devices</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><span class="badge-biz">Lite</span></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><span class="badge-e5">Full</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Auto-Labeling (AI) <span class="text-xs text-slate-400 block font-normal">Auto-classify data based on content</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+
+                                <tr class="bg-slate-100"><td colspan="4" class="px-6 py-3 font-bold text-xs text-slate-600 uppercase tracking-wider">5. Cloud Apps & Shadow IT</td></tr>
+                                
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Cloud App Discovery (Shadow IT)</td>
+                                    <td class="px-6 py-3 text-center border-x"><span class="badge-basic">Basic</span></td>
+                                    <td class="px-6 py-3 text-center border-r"><span class="badge-basic">Basic</span></td>
+                                    <td class="px-6 py-3 text-center"><span class="badge-e5">Full</span></td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-3 font-medium text-slate-700">Session Control (CASB) <span class="text-xs text-slate-400 block font-normal">Block downloads on unmanaged devices</span></td>
+                                    <td class="px-6 py-3 text-center border-x"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center border-r"><i class="fa-solid fa-xmark icon-cross"></i></td>
+                                    <td class="px-6 py-3 text-center"><i class="fa-solid fa-check icon-check"></i></td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -243,7 +361,7 @@
                 </div>
 
                 <div>
-                     <div class="flex items-center gap-2 mb-4 border-b pb-2 pt-6">
+                      <div class="flex items-center gap-2 mb-4 border-b pb-2 pt-6">
                         <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold">2</div>
                         <h3 class="text-xl font-bold text-slate-700">Devices & Applications</h3>
                     </div>
@@ -296,7 +414,7 @@
                 </div>
 
                 <div>
-                     <div class="flex items-center gap-2 mb-4 border-b pb-2 pt-6">
+                      <div class="flex items-center gap-2 mb-4 border-b pb-2 pt-6">
                         <div class="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-bold">3</div>
                         <h3 class="text-xl font-bold text-slate-700">Data & Network</h3>
                     </div>
@@ -342,7 +460,7 @@
                                 <div class="relative w-24 h-24">
                                     <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                                         <path class="text-slate-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" />
-                                        <circle id="score-ring" cx="18" cy="18" r="15.9155" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="100, 100" class="text-msBlue transition-all duration-1000" />
+                                        <circle id="score-ring" cx="18" cy="18" r="15.9155" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="0, 100" class="text-msBlue transition-all duration-1000" />
                                     </svg>
                                     <div class="absolute inset-0 flex items-center justify-center font-bold text-2xl" id="score-text">0%</div>
                                 </div>
@@ -369,7 +487,7 @@
                                     <div id="rec-plan-name" class="text-3xl font-extrabold text-msBlue mb-2">Microsoft 365</div>
                                     <div class="text-4xl font-bold text-slate-800 mb-1" id="rec-plan-price"></div>
                                     <div class="text-xs text-slate-500 mb-6">per user / month (estimated)</div>
-                                    <a href="#" class="bg-msBlue text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition w-full">Contact Sales</a>
+                                    <a href="mailto:Abdulloh.eg@gmail.com" class="bg-msBlue text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition w-full">Contact Sales</a>
                                 </div>
                                 
                                 <div class="p-8 w-full md:w-2/3 bg-white">
@@ -420,7 +538,7 @@
     </main>
 
     <footer class="bg-slate-800 text-slate-400 py-6 mt-auto text-center text-sm border-t border-slate-700 no-print">
-        <p>&copy; <span id="year"></span> by Mr.Abdulloh Etaeluengoh. All rights reserved.</p>
+        <p>&copy; <span id="year"></span>  Mr.Abdulloh Etaelue-ngoh. All rights reserved.</p>
         <p class="mt-1 text-xs text-slate-500">Reference: Microsoft Zero Trust Guidance</p>
     </footer>
 
@@ -443,7 +561,7 @@
             const activeTab = document.getElementById('tab-' + viewName);
             if(activeTab) activeTab.classList.add('active');
 
-            // Sync Mobile - Improved to use classList
+            // Sync Mobile
             const mobTabs = ['mob-tab-hub', 'mob-tab-compare', 'mob-tab-assessment'];
             mobTabs.forEach(id => {
                 const el = document.getElementById(id);
@@ -468,7 +586,7 @@
             { title: "Apps", icon: "fa-cubes", color: "text-orange-600", desc: "Shadow IT", items: ["Cloud App Security", "App Proxy", "SSO"], link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/applications" },
             { title: "Data", icon: "fa-file-shield", color: "text-green-600", desc: "Info Protection", items: ["Sensitivity Labels", "DLP", "Encryption"], link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/data" },
             { title: "Infrastructure", icon: "fa-server", color: "text-red-600", desc: "Threat Detection", items: ["Defender for Identity", "Azure Arc", "XDR"], link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/infrastructure" },
-             { title: "Network", icon: "fa-network-wired", color: "text-slate-600", desc: "Secure Access", items: ["ZTNA", "Segmentation", "Encryption"], link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/network" }
+             { title: "Network", icon: "fa-network-wired", color: "text-slate-600", desc: "Secure Access", items: ["ZTNA", "Segmentation", "Encryption"], link: "https://learn.microsoft.com/en-us/security/zero-trust/deploy/networks" }
         ];
 
         const container = document.getElementById('cards-container');
@@ -528,7 +646,7 @@
             let p1 = [], p2 = [], p3 = [];
             let whyRec = []; 
 
-            // Logic Engine (Preserved from original)
+            // Logic Engine
             if(answers.q1 === 'e5' || answers.q1 === 'biz') score += 10; else if(answers.q1 === 'e3') score += 5;
             
             if(answers.q2 !== 'onprem') { score += 10; have.push("Cloud Identity Ready"); }
@@ -594,15 +712,12 @@
             
             document.getElementById('score-text').innerText = score + "%";
             
-            // Circle Logic - Fixed
+            // Circle Logic Fixed (Circumference of r=15.9155 is approx 100)
             const circle = document.getElementById('score-ring');
             if(circle) {
-                // Circumference = 2 * pi * r. r=15.9155 => C approx 100
-                const radius = circle.r.baseVal.value;
-                const circumference = radius * 2 * Math.PI;
-                const offset = circumference - (score / 100) * circumference;
-                circle.style.strokeDasharray = `${circumference} ${circumference}`;
-                circle.style.strokeDashoffset = offset;
+                // Stroke Dasharray: [Filled, Empty]
+                // Example: Score 70 => "70, 100" (Fill 70, gap rest)
+                circle.style.strokeDasharray = `${score}, 100`;
             }
 
             const levelEl = document.getElementById('maturity-level');
