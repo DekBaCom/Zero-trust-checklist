@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zero Trust Gap Analysis Tool</title>
+    <title>Zero Trust Gap Analysis — Quick Assessment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -44,12 +44,22 @@
         <div class="max-w-4xl mx-auto px-4">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-scale-balanced text-msBlue text-2xl"></i>
-                    <h1 class="font-bold text-lg text-slate-700">Zero Trust Gap Analysis</h1>
+                    <div class="bg-msBlue text-white p-2 rounded-lg">
+                        <i class="fa-brands fa-microsoft text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-slate-700 leading-tight">Zero Trust Gap Analysis</h1>
+                        <p class="text-xs text-slate-500">Quick 4-Question Assessment</p>
+                    </div>
                 </div>
-                <button onclick="location.reload()" class="text-sm text-slate-500 hover:text-msBlue">
-                    <i class="fa-solid fa-rotate-right"></i> Reset
-                </button>
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="text-sm text-msBlue font-semibold hover:underline flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-left text-xs"></i> Full Hub
+                    </a>
+                    <button onclick="location.reload()" class="text-sm text-slate-500 hover:text-msBlue">
+                        <i class="fa-solid fa-rotate-right"></i> Reset
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -59,26 +69,31 @@
         <div id="assessment-form" class="space-y-8 fade-in">
             <div class="text-center mb-8">
                 <h2 class="text-2xl font-bold text-slate-800">Current Environment Assessment</h2>
-                <p class="text-slate-500">เลือกสถานะปัจจุบันของระบบไอทีของคุณ เพื่อรับคำแนะนำสิ่งที่ต้องเพิ่ม</p>
+                <p class="text-slate-500">Select your current IT security state to receive a gap analysis and recommendations.</p>
+                <p class="text-xs text-slate-400 mt-1">For the full 10-question assessment, visit the <a href="index.html" class="text-msBlue hover:underline">Zero Trust Hub</a>.</p>
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span> 
-                    ปัจจุบันคุณใช้ License อะไรเป็นหลัก?
+                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                    Primary Microsoft 365 License?
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'none', this)">
-                        <div class="font-semibold">ไม่มี / ซื้อแยก (Standalone)</div>
-                        <div class="text-xs text-slate-500">ใช้ Office แบบซื้อขาด หรือ Google Workspace</div>
+                        <div class="font-semibold">None / Standalone</div>
+                        <div class="text-xs text-slate-500">Perpetual Office license or Google Workspace</div>
+                    </div>
+                    <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'biz', this)">
+                        <div class="font-semibold">Microsoft 365 Business Premium</div>
+                        <div class="text-xs text-slate-500">SME all-in-one with Defender & Intune</div>
                     </div>
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'e3', this)">
-                        <div class="font-semibold">Microsoft 365 E3 / Business Std</div>
-                        <div class="text-xs text-slate-500">มี Email, Teams, SharePoint แต่ Security พื้นฐาน</div>
+                        <div class="font-semibold">Microsoft 365 E3</div>
+                        <div class="text-xs text-slate-500">Email, Teams, SharePoint — basic security only</div>
                     </div>
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('license', 'e5', this)">
                         <div class="font-semibold">Microsoft 365 E5</div>
-                        <div class="text-xs text-slate-500">มีชุด Security เต็มรูปแบบอยู่แล้ว</div>
+                        <div class="text-xs text-slate-500">Full security suite included</div>
                     </div>
                 </div>
                 <input type="hidden" id="input-license">
@@ -86,21 +101,21 @@
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span> 
-                    ระบบจัดการผู้ใช้งาน (Identity) ปัจจุบัน?
+                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                    Current Identity Management System?
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('identity', 'onprem', this)">
                         <div class="font-semibold">On-premise AD Only</div>
-                        <div class="text-xs text-slate-500">ใช้ Server AD ในบริษัท ยังไม่ Sync ขึ้น Cloud</div>
+                        <div class="text-xs text-slate-500">Internal AD server — not yet synced to Cloud</div>
                     </div>
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('identity', 'hybrid', this)">
                         <div class="font-semibold">Hybrid Identity</div>
-                        <div class="text-xs text-slate-500">Sync AD ขึ้น Entra ID (Azure AD) แล้ว</div>
+                        <div class="text-xs text-slate-500">AD synced to Entra ID via Entra Connect</div>
                     </div>
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('identity', 'cloud', this)">
                         <div class="font-semibold">Cloud Only</div>
-                        <div class="text-xs text-slate-500">สร้าง User บน Cloud 100% ไม่มี Server</div>
+                        <div class="text-xs text-slate-500">100% Entra ID — no on-premise servers</div>
                     </div>
                 </div>
                 <input type="hidden" id="input-identity">
@@ -108,17 +123,21 @@
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span> 
-                    การป้องกันเครื่องคอมพิวเตอร์ (Endpoint)?
+                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
+                    Endpoint Protection?
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('endpoint', 'legacy', this)">
-                        <div class="font-semibold">Traditional Antivirus</div>
-                        <div class="text-xs text-slate-500">ใช้ Antivirus ยี่ห้ออื่น หรือรุ่นเก่า</div>
+                        <div class="font-semibold">Legacy / 3rd-Party Antivirus</div>
+                        <div class="text-xs text-slate-500">Signature-based AV from another vendor</div>
                     </div>
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('endpoint', 'defender', this)">
                         <div class="font-semibold">Microsoft Defender (Basic)</div>
-                        <div class="text-xs text-slate-500">ใช้ตัวที่แถมมากับ Windows</div>
+                        <div class="text-xs text-slate-500">Built-in Windows Defender antivirus only</div>
+                    </div>
+                    <div class="option-card border rounded-lg p-4" onclick="selectOption('endpoint', 'edr', this)">
+                        <div class="font-semibold">Defender for Endpoint (EDR)</div>
+                        <div class="text-xs text-slate-500">Advanced EDR / XDR with threat hunting</div>
                     </div>
                 </div>
                 <input type="hidden" id="input-endpoint">
@@ -126,21 +145,21 @@
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span> 
-                    การเข้าถึงระบบภายในจากที่บ้าน?
+                    <span class="bg-blue-100 text-msBlue w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span>
+                    External / Remote Access?
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="option-card border rounded-lg p-4" onclick="selectOption('access', 'none', this)">
+                        <div class="font-semibold text-red-600">Public IP / Open Port</div>
+                        <div class="text-xs text-slate-500">Direct RDP or port-forwarding (high risk)</div>
+                    </div>
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('access', 'vpn', this)">
                         <div class="font-semibold">VPN Connection</div>
-                        <div class="text-xs text-slate-500">พนักงานต้อง Connect VPN เพื่อเข้า Server</div>
-                    </div>
-                    <div class="option-card border rounded-lg p-4" onclick="selectOption('access', 'none', this)">
-                        <div class="font-semibold">Public IP / Forward Port</div>
-                        <div class="text-xs text-slate-500">เปิด Port ให้เข้าโดยตรง (มีความเสี่ยงสูง)</div>
+                        <div class="text-xs text-slate-500">Staff connect via traditional VPN tunnel</div>
                     </div>
                     <div class="option-card border rounded-lg p-4" onclick="selectOption('access', 'ztna', this)">
-                        <div class="font-semibold">Zero Trust / App Proxy</div>
-                        <div class="text-xs text-slate-500">เข้าผ่าน Web โดยไม่ต้องใช้ VPN</div>
+                        <div class="font-semibold text-green-600">Zero Trust / App Proxy</div>
+                        <div class="text-xs text-slate-500">App-level access — no VPN required</div>
                     </div>
                 </div>
                 <input type="hidden" id="input-access">
@@ -156,8 +175,8 @@
         <div id="result-section" class="hidden-section fade-in">
             <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
                 <div class="bg-slate-800 text-white p-6 text-center">
-                    <h2 class="text-2xl font-bold">🎯 Your Zero Trust Gap Analysis</h2>
-                    <p class="text-slate-400 mt-2">สิ่งที่ "มีแล้ว" vs สิ่งที่ "ต้องเพิ่ม" เพื่อความปลอดภัยสูงสุด</p>
+                    <h2 class="text-2xl font-bold">Your Zero Trust Gap Analysis</h2>
+                    <p class="text-slate-400 mt-2">What you have now vs. what you need for comprehensive Zero Trust security</p>
                 </div>
 
                 <div class="p-6">
@@ -212,7 +231,7 @@
 
     <footer class="bg-white border-t border-gray-200 py-6 mt-auto">
         <div class="text-center text-sm text-slate-400">
-            &copy; <span id="year"></span> by Mr.Abdulloh Etaeluengoh. All rights reserved.
+            &copy; <span id="year"></span> Mr. Abdulloh Etaeluengoh. All rights reserved.
         </div>
     </footer>
 
@@ -243,7 +262,7 @@
 
             // Validate
             if(!license || !identity || !endpoint || !access) {
-                alert("กรุณาเลือกคำตอบให้ครบทุกข้อครับ (Please select all options)");
+                alert("Please select an answer for all 4 questions before generating the report.");
                 return;
             }
 
@@ -256,56 +275,70 @@
 
             // A. Identity Analysis
             if (identity === 'onprem') {
-                haveList.push("Legacy On-premise AD");
-                needList.push("<b>Hybrid Identity:</b> ติดตั้ง Entra Connect เพื่อ Sync User ขึ้น Cloud");
-                needList.push("<b>MFA Enforcement:</b> บังคับใช้ MFA ทันทีเมื่อขึ้น Cloud");
+                haveList.push("On-premise Active Directory");
+                needList.push("<b>Hybrid Identity:</b> Install Entra Connect to sync users to the Cloud.");
+                needList.push("<b>MFA Enforcement:</b> Enforce MFA for all users immediately after Cloud sync.");
             } else if (identity === 'hybrid') {
-                haveList.push("Hybrid Identity Setup");
-                needList.push("<b>Identity Protection:</b> ตรวจจับ Risky Sign-ins (AI) เพื่อ Auto-block");
+                haveList.push("Hybrid Identity (AD + Entra ID)");
+                needList.push("<b>Identity Protection:</b> Enable risk-based sign-in detection to auto-block compromised accounts.");
             } else {
-                haveList.push("Cloud Native Identity");
+                haveList.push("Cloud-Native Identity (Entra ID)");
             }
 
             if (identity === 'onprem' || identity === 'hybrid') {
-                needList.push("<b>Defender for Identity:</b> ติดตั้ง Sensor ที่ AD เพื่อกันการเจาะระบบภายใน");
+                needList.push("<b>Defender for Identity:</b> Deploy sensors on AD to detect lateral movement and credential attacks.");
             }
 
             // B. Endpoint Analysis
             if (endpoint === 'legacy') {
-                haveList.push("Traditional Antivirus");
-                needList.push("<b>Defender for Endpoint (EDR):</b> ต้องการระบบ EDR เพื่อสืบสวนสาเหตุการโจมตี");
+                haveList.push("Legacy / 3rd-party Antivirus");
+                needList.push("<b>Defender for Endpoint (EDR):</b> Deploy EDR to investigate and respond to advanced attacks.");
+                needList.push("<b>Microsoft Defender Antivirus:</b> Replace legacy AV with next-gen, cloud-connected protection.");
             } else if (endpoint === 'defender') {
                 haveList.push("Basic Defender Antivirus");
-                needList.push("<b>Defender for Endpoint P2:</b> Upgrade เป็น P2 เพื่อทำ Automated Investigation & Remediation");
+                needList.push("<b>Defender for Endpoint P2:</b> Upgrade to P2 for Automated Investigation & Remediation (AIR).");
+            } else if (endpoint === 'edr') {
+                haveList.push("Defender for Endpoint (EDR/XDR)");
             }
 
             // C. Access Analysis
             if (access === 'vpn') {
-                haveList.push("VPN Access");
-                needList.push("<b>Entra Private Access:</b> เลิกใช้ VPN และใช้ App Proxy เพื่อลด Attack Surface");
+                haveList.push("VPN Remote Access");
+                needList.push("<b>Entra Private Access:</b> Replace VPN with app-level Zero Trust access to reduce your attack surface.");
             } else if (access === 'none') {
-                haveList.push("Unsecured Direct Access");
-                needList.push("<b class='text-red-600'>CRITICAL:</b> ปิด Port ด่วนและใช้ App Proxy หรือ VPN แทน");
+                haveList.push("Unsecured Direct Internet Exposure");
+                needList.push("<b class='text-red-600'>CRITICAL — Close Open Ports Immediately:</b> Replace with App Proxy or VPN to prevent direct compromise.");
+            } else if (access === 'ztna') {
+                haveList.push("Zero Trust Network Access (App Proxy / ZTNA)");
             }
 
             // D. License Recommendation Logic
             if (license === 'e5') {
-                summary = "เยี่ยมมาก! คุณมี License ที่ดีที่สุด (E5) อยู่แล้ว สิ่งที่ต้องทำคือการ 'Configure' ให้ถูกต้องตามหลัก Zero Trust";
-                recommendation = "Optimization & Configuration Services";
+                summary = "You already own the most complete security suite. The priority is proper configuration — not more licenses.";
+                recommendation = "Configuration & Activation Services";
                 price = "Already Owned";
-                needList.length = 0; // Clear needs, strictly config
-                needList.push("Configure Conditional Access Policies");
-                needList.push("Onboard Devices to Intune");
-                needList.push("Deploy Sensitivity Labels");
+                needList.length = 0;
+                needList.push("<b>Configure Conditional Access Policies</b> with risk-based rules.");
+                needList.push("<b>Onboard all devices</b> to Intune and enforce compliance.");
+                needList.push("<b>Deploy Sensitivity Labels</b> and enable Auto-Labeling.");
+                needList.push("<b>Enable Microsoft Secure Score</b> and track improvement weekly.");
+            } else if (license === 'biz') {
+                summary = "Business Premium is an excellent all-in-one choice. Ensure Defender for Business and Intune are fully deployed — they are included but need activation.";
+                recommendation = "Business Premium — Activate Included Features";
+                price = "Already Owned";
+                haveList.push("Microsoft 365 Business Premium");
+                needList.push("<b>Activate Defender for Business</b> and onboard all endpoints.");
+                needList.push("<b>Set up Conditional Access policies</b> to enforce MFA and device compliance.");
+                needList.push("<b>Enroll devices to Intune</b> for modern management.");
             } else if (license === 'e3') {
-                summary = "คุณมี E3 ซึ่งดีในระดับพื้นฐาน แต่ยังขาดระบบป้องกันภัยคุกคามชั้นสูง (Advanced Threat Protection)";
+                summary = "E3 is a solid foundation but lacks advanced threat protection. Adding the E5 Security add-on closes the most critical gaps without replacing your plan.";
                 recommendation = "Add-on: Microsoft 365 E5 Security";
                 price = "~$12.00 /user/month";
                 haveList.push("Microsoft 365 E3 Base");
             } else {
-                summary = "คุณมีความเสี่ยงสูงเนื่องจากขาดเครื่องมือบริหารจัดการแบบรวมศูนย์ ควรเริ่มวางรากฐาน Identity และ Device Management ใหม่";
+                summary = "Significant security gaps detected. Without a unified plan, identity and device management are fragmented. Upgrading to Business Premium or E3 is the recommended first step.";
                 recommendation = "Microsoft 365 Business Premium (SME) or E3 (Enterprise)";
-                price = "~$22.00 - $36.00 /user";
+                price = "~$22.00 – $36.00 /user/month";
             }
 
             // 3. Render Results
