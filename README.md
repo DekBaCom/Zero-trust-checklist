@@ -30,6 +30,7 @@ This tool simplifies the decision-making process by providing a clear **Feature 
 ### 1. 📚 Zero Trust Resource Hub
 * Centralized dashboard categorized by the 6 Pillars of Zero Trust: **Identity, Endpoints, Apps, Data, Infrastructure, and Network**.
 * Quick access to official Microsoft Learn documentation.
+* Direct link to the **[Microsoft Zero Trust Workshop](https://zerotrust.microsoft.com/)** for deployment guidance and official assessment tools.
 
 ### 2. 📊 Full Feature Comparison Matrix
 * **Detailed Breakdown:** Compare security capabilities across **Standard**, **Business Premium**, **Enterprise E3**, and **Enterprise E5**.
